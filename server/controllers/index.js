@@ -12,5 +12,5 @@ module.exports.index = function (req, res, next) {
         res.sendFile('/vieux.jpg', options);
     }
     else
-        res.send('Good bye');
+        res.send('Good bye !');
 };
