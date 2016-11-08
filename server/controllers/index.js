@@ -1,16 +1,12 @@
-module.exports.index = function (req, res, next) {
-    if( req.accepts('image/jpeg') ) {
-          var options = {
-            root: __dirname + '/../../client/public/',
-            dotfiles: 'deny',
-            headers: {
-                'x-timestamp': Date.now(),
-                'x-sent': true
-            }
-        };
+Photo = require('../models/photo');
 
-        res.sendFile('/vieux.jpg', options);
-    }
-    else
-        res.send('Good bye !');
+module.exports.index = function (req, res, next) {
+    Photo.request('all', function(err, photos) {
+        if(err) {
+            console.log("Ah bénon, ça ne marche pas.")
+            next(err);
+        } else {
+            res.status(200).json(photos)
+        }
+    });
 };

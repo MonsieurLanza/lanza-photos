@@ -1,10 +1,22 @@
 {
-  "name": "lza-photos-serve",
+  "name": "lanza-photos",
+  "cozy-displayName": "Lanza's Photos",
   "version": "0.0.1",
+  "author": "Lanza",
   "scripts": {
     "start": "node server.js"
   },
   "dependencies": {
-    "americano": "0.4.5"
+    "americano": "0.4.5",
+    "cozydb": "^0.1.13",
+    "gm": "^1.23.0",
+    "react": "^15.3.2",
+    "react-dom": "^15.3.2"
+  },
+  "devDependencies": {},
+  "cozy-permissions": {
+    "Photo": {
+      "description": "Creates and edits your photos"
+    }
   }
 }
