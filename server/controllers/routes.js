@@ -1,4 +1,5 @@
-var index = require('./index');
+var photo = require('./photo');
 module.exports = {
-  '': { get: index.index }
+  '': { get: photo.index },
+  'photos/:id': { get: photo.fetch }
 };
