@@ -1,4 +1,5 @@
 var Photo = require('../models/photo');
+var consolidate = require('consolidate');
 // var ReactDOMServer = require('react-dom/server');
 
 function serialize(photos) {
@@ -18,8 +19,9 @@ module.exports.index = function (req, res, next) {
             console.log("Ah bénon, ça ne marche pas.")
             next(err);
         } else {
-            if( req.accepts('text/html') )
-                res.send(serialize(photos));
+            if( req.accepts('text/html') ) {
+                res.render("index", { plop: serialize(photos) })
+            }
             else if (req.accepts('application/json'))
                 res.status(200).json(photos);
         }
@@ -40,7 +42,7 @@ module.exports.fetch = function (req, res, next) {
         if (err) next(err)
         else if (!photo) next(NotFound(`Photo #{id}`))
         else {
-            photo.pipeFileRequest("thumb", res);
+            photo.pipeFile("thumb", res);
         }
     });
 }

@@ -8,8 +8,10 @@
   },
   "dependencies": {
     "americano": "0.4.5",
+    "consolidate": "^0.14.1",
     "cozydb": "^0.1.13",
     "gm": "^1.23.0",
+    "mustache": "^2.3.0",
     "react": "^15.3.2",
     "react-dom": "^15.3.2"
   },

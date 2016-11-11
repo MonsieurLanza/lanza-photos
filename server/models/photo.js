@@ -19,6 +19,8 @@ Photo.prototype.pipeFile = function(which, writable) {
             readable.pipe( writable );
         }
     });
+
+    // ?? Kind of a hack I do not really get... Abort the request when response ends ?
     writable.on('close', function() { request.abort(); });
 }
 
