@@ -27,8 +27,8 @@ var ImgProcessor = {
     stream: function() {
         return image.stream('jpg');
     },
-    size: function() {
-        return image.size();
+    size: function(callback) {
+        return image.size(callback);
     }
 };
 

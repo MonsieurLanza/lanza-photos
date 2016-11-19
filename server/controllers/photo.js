@@ -12,9 +12,9 @@ server.datastore = new tus.FileStore({
 });
 
 server.on('EVENT_UPLOAD_COMPLETE', (event) => {
-    console.log(`Upload complete for file ${__dirname}/../../files/${event.file.id}`);
-    Photo.createFromFile('blah.jpg', `${__dirname}/../../files/${event.file.id}`, (photo) => {
-        console.dir(photo);
+    console.log(event.file);
+    Photo.createFromFile('fnuck.jpg', `${__dirname}/../../files/${event.file.id}`, (photo) => {
+        console.log("Creation ended");
     });
 });
 

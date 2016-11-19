@@ -91,12 +91,12 @@
             var upload = new tus.Upload(file, {
                 endpoint: "http://localhost:9104/apps/lanza-photos/uploads/",
                 retryDelays: [0, 1000, 3000, 5000],
+                metadata: {fileName: file.name},
                 onError: function(error) {
                     console.log("Failed because: " + error)
                 },
                 onProgress: function(bytesUploaded, bytesTotal) {
                     var percentage = (bytesUploaded / bytesTotal * 100).toFixed(2)
-                    console.log(bytesUploaded, bytesTotal, percentage + "%")
                 },
                 onSuccess: function() {
                     console.log("Download %s", upload.file.name)

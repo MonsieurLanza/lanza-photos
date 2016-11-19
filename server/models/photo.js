@@ -77,12 +77,11 @@ Photo.createFromFile = function(fileName, filePath, callback) {
             photovalues.size = {
                 raw: data.size
             };
-
-            console.log(photovalues);
         }
 
+        // FIXME: clean this mess : error handling & use async
+        // TODO: erase temp files. Get sizes right.
         Photo.create(photovalues, (err, photo) => {
-            console.log(filePath);
             photo.attachBinary(filePath, {name: 'raw', type: data['Mime type']}, (err) => {
                 ImgProcessor.resize(1200, 1200, 'screen', (err) =>{
                     photo.size.screen = ImgProcessor.size();
