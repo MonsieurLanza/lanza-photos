@@ -13,7 +13,8 @@
     "gm": "^1.23.0",
     "mustache": "^2.3.0",
     "react": "^15.3.2",
-    "react-dom": "^15.3.2"
+    "react-dom": "^15.3.2",
+    "tus-node-server": "^0.2.2"
   },
   "devDependencies": {},
   "cozy-permissions": {

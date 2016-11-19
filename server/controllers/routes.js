@@ -1,5 +1,7 @@
 var photo = require('./photo');
 module.exports = {
   '': { get: photo.index },
-  'photos/:id': { get: photo.fetch }
+  'uploads/*': { all: photo.tus },
+  'photos/:id': { get: photo.fetch },
+  'photos/:id/:which.jpg': { get: photo.fetch }
 };

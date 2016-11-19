@@ -1,0 +1,94 @@
+{
+  "name": "tus-node-server",
+  "description": "Node.js tus server",
+  "version": "0.2.2",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tus/tus-node-server.git"
+  },
+  "keywords": [
+    "tus",
+    "framework",
+    "resumable",
+    "upload",
+    "protocol",
+    "app",
+    "api",
+    "server"
+  ],
+  "author": {
+    "name": "Ben Stahl",
+    "email": "bhstahl@gmail.com"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tus/tus-node-server/issues"
+  },
+  "homepage": "https://github.com/tus/tus-node-server#readme",
+  "engines": {
+    "node": "4.4.4"
+  },
+  "files": [
+    "LICENSE",
+    "README.md",
+    "index.js",
+    "lib/"
+  ],
+  "main": "index.js",
+  "scripts": {
+    "test": "NODE_ENV=test mocha",
+    "coveralls": "NODE_ENV=test istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
+    "demo": "node demo/server.js",
+    "lint": "eslint ."
+  },
+  "devDependencies": {
+    "@vimeo/eslint-config-player": "^4.0.1",
+    "babel-eslint": "^6.0.4",
+    "coveralls": "^2.11.4",
+    "eslint": "^2.9.0",
+    "eslint-plugin-promise": "^1.1.0",
+    "istanbul": "^0.4.0",
+    "mocha": "^2.3.3",
+    "mocha-lcov-reporter": "^1.0.0",
+    "should": "^8.0.1",
+    "supertest": "^1.1.0",
+    "tus-js-client": "^1.1.4"
+  },
+  "dependencies": {
+    "configstore": "^2.0.0",
+    "crypto-rand": "0.0.2",
+    "object-assign": "^4.1.0",
+    "request": "^2.72.0"
+  },
+  "gitHead": "be1e716f26945ef4bf8abb8d546a456fa356efa2",
+  "_id": "tus-node-server@0.2.2",
+  "_shasum": "f4d6e59582c2ac9c58213181a5009695d110b3fa",
+  "_from": "tus-node-server@latest",
+  "_npmVersion": "2.14.2",
+  "_nodeVersion": "4.0.0",
+  "_npmUser": {
+    "name": "bhstahl",
+    "email": "bhstahl@gmail.com"
+  },
+  "dist": {
+    "shasum": "f4d6e59582c2ac9c58213181a5009695d110b3fa",
+    "tarball": "https://registry.npmjs.org/tus-node-server/-/tus-node-server-0.2.2.tgz"
+  },
+  "maintainers": [
+    {
+      "name": "bhstahl",
+      "email": "bhstahl@gmail.com"
+    },
+    {
+      "name": "kvz",
+      "email": "kevin@vanzonneveld.net"
+    }
+  ],
+  "_npmOperationalInternal": {
+    "host": "packages-16-east.internal.npmjs.com",
+    "tmp": "tmp/tus-node-server-0.2.2.tgz_1476702097246_0.4092265365179628"
+  },
+  "directories": {},
+  "_resolved": "https://registry.npmjs.org/tus-node-server/-/tus-node-server-0.2.2.tgz",
+  "readme": "ERROR: No README data found!"
+}
