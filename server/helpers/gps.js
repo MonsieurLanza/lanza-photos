@@ -35,6 +35,6 @@ var Gps = {
 
         return gps;
     }
-}
+};
 
 module.exports = Gps;

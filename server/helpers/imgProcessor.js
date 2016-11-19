@@ -4,8 +4,10 @@ var mime = require('mime');
 
 var ImgProcessor = {
     image: null,
-    init: function(path) {
-        image = gm(srcPath);
+    filePath: null,
+    init: function(path, name) {
+        image = gm(path);
+        filePath = path;
     },
     ensure: function() {
         if(!image) {
@@ -13,16 +15,21 @@ var ImgProcessor = {
         }
         return image;
     },
-    resize: function(width, height) {
-        if(!ensure()) return;
+    resize: function(width, height, name, callback) {
+        if(!this.ensure()) return;
         image.resize(width, height)
-            .autoorient();
+            .autoOrient().write(filePath + name + '.jpg', callback);
     },
     readExifs: function(callback) {
-        if(!ensure()) return null;
+        if(!this.ensure()) return null;
         image.identify(callback);
+    },
+    stream: function() {
+        return image.stream('jpg');
+    },
+    size: function() {
+        return image.size();
     }
-
 };
 
 module.exports = ImgProcessor;

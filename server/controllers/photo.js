@@ -2,6 +2,7 @@ var Photo = require('../models/photo');
 var consolidate = require('consolidate');
 // var ReactDOMServer = require('react-dom/server');
 const tus = require('../lib/vendor/tus-node-server');
+
 const server = new tus.Server();
 
 server.datastore = new tus.FileStore({
@@ -10,6 +11,12 @@ server.datastore = new tus.FileStore({
     directory: 'files'
 });
 
+server.on('EVENT_UPLOAD_COMPLETE', (event) => {
+    console.log(`Upload complete for file ${__dirname}/../../files/${event.file.id}`);
+    Photo.createFromFile('blah.jpg', `${__dirname}/../../files/${event.file.id}`, (photo) => {
+        console.dir(photo);
+    });
+});
 
 // FIXME : Move this to views
 function serialize(photos) {
@@ -23,10 +30,10 @@ function serialize(photos) {
 
 module.exports.index = function (req, res, next) {
     Photo.list(null, function(err, photos) {
-        if(err) {
+        if (err) {
             next(err);
         } else {
-            if( req.accepts('text/html') ) {
+            if (req.accepts('text/html')) {
                 res.render("index", { plop: serialize(photos) });
             }
             else if (req.accepts('application/json'))
@@ -49,7 +56,7 @@ module.exports.fetch = function (req, res, next) {
         if (err) next(err)
         else if (!photo) next(NotFound(`Photo #{id}`))
         else {
-            if( req.accepts("image/*")) {
+            if (req.accepts("image/*")) {
                 photo.pipeFile(req.params.which || 'raw', res);
             } else if( req.accepts("application/json")) {
                 res.status(200).json(photo);
