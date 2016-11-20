@@ -47,6 +47,9 @@
 
             zoomInBtn.addEventListener('click', zoomIn, false);
             zoomOutBtn.addEventListener('click', zoomOut, false);
+
+            new flexImages({selector: ".flex-images", container: ".photo", rowHeight: rowHeight});
+
         });
 
 
@@ -60,7 +63,6 @@
             new flexImages({selector: ".flex-images", container: ".photo", rowHeight: rowHeight});
         }
 
-        new flexImages({selector: ".flex-images", container: ".photo", rowHeight: rowHeight});
 
         var droptarget = document.getElementById('photo-view');
         droptarget.addEventListener('dragenter', drag, false);
