@@ -15,7 +15,10 @@
         <ul class="nav navbar-nav">
           <li class="nav-item active"><a href="#" class="nav-link">Fil de Photos</a></li>
           <li class="nav-item"><a href="#" class="nav-link">Public</a></li>
-          <li class="nav-item"><button id="zoomin">+</button><button id="zoomout">-</button></li>
+          <li class="nav-item btn-group float-xs-right">
+              <button id="zoomout" class="btn btn-secondary">-</button>
+              <button id="zoomin" class="btn btn-secondary">+</button>
+          </li>
         </ul>
     </nav>
     <section id="photo-view">
@@ -32,14 +35,20 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js" integrity="sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK" crossorigin="anonymous"></script>
     <script src="js/tus.min.js"></script>
     <script src="js/flex-images.min.js"></script>
+    <script src="js/lightbox.js"></script>
     <script type="text/javascript">
         var rowHeight = 100;
 
-        var zoomInBtn = document.getElementById('zoomin');
-        var zoomOutBtn = document.getElementById('zoomout');
+        document.addEventListener("DOMContentLoaded", function() {
+            var init = new lightBox();
 
-        zoomInBtn.addEventListener('click', zoomIn, false);
-        zoomOutBtn.addEventListener('click', zoomOut, false);
+            var zoomInBtn = document.getElementById('zoomin');
+            var zoomOutBtn = document.getElementById('zoomout');
+
+            zoomInBtn.addEventListener('click', zoomIn, false);
+            zoomOutBtn.addEventListener('click', zoomOut, false);
+        });
+
 
         function zoomIn() {
             rowHeight = rowHeight > 300 ? rowHeight : rowHeight + 10;

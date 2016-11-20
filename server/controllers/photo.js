@@ -36,7 +36,7 @@ function serialize(photos) {
         var size = photos[i].size.thumb;
         var width = Math.round(size.width * 300 / size.height);
         var height = 300;
-        html += `<li class="photo" data-w="${width}" data-h="${height}"><a href="photos/${photos[i].id}/raw.jpg"><img src="photos/${photos[i].id}/thumb.jpg" alt="${photos[i].title}" title="Photo prise le ${photos[i].date}"></a></li>`
+        html += `<li class="photo" data-w="${width}" data-h="${height}"><a data-big="photos/${photos[i].id}/screen.jpg" href="photos/${photos[i].id}/raw.jpg" class="lightbox"><img src="photos/${photos[i].id}/thumb.jpg" alt="${photos[i].title}" title="Photo prise le ${photos[i].date}"></a></li>`
     }
     html += '</ul>';
     return html;
