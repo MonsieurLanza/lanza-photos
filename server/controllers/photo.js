@@ -31,7 +31,9 @@ server.on('EVENT_UPLOAD_COMPLETE', (event) => {
 
 // FIXME : Move this to views
 function serializeList(photos) {
-    var date = photos[0].date.substring(0, 4);
+    var date = "2016";
+    if(photos.length > 0)
+      date = photos[0].date.substring(0, 4);
     var html = `<h2>${date}</h2>`;
     html += '<ul class="flex-images">';
     for (var i in photos) {
