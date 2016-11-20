@@ -23,12 +23,11 @@
     </nav>
     <section id="photo-view">
     {{{ plop }}}
-
-    <form method="post" enctype="multipart/form-data" action="photos">
-        <input type="file" accept="image/*" name="file" id="photo-input">
-        <input type="submit" name="Téléverser">
-    </form>
     </section>
+        <form method="post" enctype="multipart/form-data" action="photos">
+            <input type="file" accept="image/*" name="file" id="photo-input">
+            <input type="submit" name="Téléverser">
+        </form>
     <!-- jQuery first, then Tether, then Bootstrap JS. -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" integrity="sha384-3ceskX3iaEnIogmQchP8opvBy3Mi7Ce34nWjpBIwVTHfGYWQS9jwHDVRnpKKHJg7" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.7/js/tether.min.js" integrity="sha384-XTs3FgkjiBgo8qjEjBk0tGmf3wPrWtA6coPfQDfFEY8AnYJwjalXCiosYRBIBZX8" crossorigin="anonymous"></script>
@@ -37,10 +36,9 @@
     <script src="js/flex-images.min.js"></script>
     <script src="js/lightbox.js"></script>
     <script type="text/javascript">
-        var rowHeight = 100;
+        var rowHeight = 150;
 
         document.addEventListener("DOMContentLoaded", function() {
-            var init = new lightBox();
 
             var zoomInBtn = document.getElementById('zoomin');
             var zoomOutBtn = document.getElementById('zoomout');
@@ -49,7 +47,7 @@
             zoomOutBtn.addEventListener('click', zoomOut, false);
 
             new flexImages({selector: ".flex-images", container: ".photo", rowHeight: rowHeight});
-
+            var init = new lightBox();
         });
 
 

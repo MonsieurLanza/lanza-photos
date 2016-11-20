@@ -30,15 +30,27 @@ server.on('EVENT_UPLOAD_COMPLETE', (event) => {
 });
 
 // FIXME : Move this to views
-function serialize(photos) {
-    var html = '<ul class="flex-images">';
+function serializeList(photos) {
+    var date = photos[0].date.substring(0, 4);
+    var html = `<h2>${date}</h2>`;
+    html += '<ul class="flex-images">';
     for (var i in photos) {
-        var size = photos[i].size.thumb;
-        var width = Math.round(size.width * 300 / size.height);
-        var height = 300;
-        html += `<li class="photo" data-w="${width}" data-h="${height}"><a data-big="photos/${photos[i].id}/screen.jpg" href="photos/${photos[i].id}/raw.jpg" class="lightbox"><img src="photos/${photos[i].id}/thumb.jpg" alt="${photos[i].title}" title="Photo prise le ${photos[i].date}"></a></li>`
+        if(photos[i].date.substring(0, 4) != date ) {
+            date = photos[i].date.substring(0, 4);
+            html += `</ul><h2>${date}</h2><ul class="flex-images">`;
+        }
+        html += serialize(photos[i]);
     }
     html += '</ul>';
+    return html;
+}
+
+function serialize(photo) {
+    var size = photo.size.thumb;
+    var width = Math.round(size.width * 300 / size.height);
+    var height = 300;
+    // TODO: Formatter les dates pour affichage.
+    html = `<li class="photo" data-w="${width}" data-h="${height}"><a data-big="photos/${photo.id}/screen.jpg" href="photos/${photo.id}/raw.jpg" class="lightbox"><img src="photos/${photo.id}/thumb.jpg" alt="${photo.title}" title="Photo prise le ${photo.date}"></a></li>`
     return html;
 }
 
@@ -48,7 +60,7 @@ module.exports.index = function (req, res, next) {
             next(err);
         } else {
             if (req.accepts('text/html')) {
-                res.render("index", { plop: serialize(photos) });
+                res.render("index", { plop: serializeList(photos) });
             }
             else if (req.accepts('application/json'))
                 res.status(200).json(photos);

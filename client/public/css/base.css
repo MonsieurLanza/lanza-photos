@@ -16,22 +16,30 @@ nav.navbar {
 .dragover {
   background-color: #cfc; }
 
+h2 {
+  margin-top: 1rem;
+  clear: left;
+  float: none; }
+
+#photo-view {
+  padding-top: 5rem; }
+
 ul.flex-images, ul.flex-images > li {
   margin: 0;
   padding: 0; }
 
-ul.flex-images {
-  margin-top: 10rem; }
-  ul.flex-images img {
-    transition: transform 0.1s;
-    position: relative; }
-  ul.flex-images li:hover {
-    overflow: visible; }
-  ul.flex-images img:hover {
-    transform: scale(1.5);
-    outline: 2px solid #6AF;
-    z-index: 3;
-    box-shadow: 0 10px 20px #222; }
+ul.flex-images img {
+  transition: transform 0.1s;
+  position: relative; }
+
+ul.flex-images li:hover {
+  overflow: visible; }
+
+ul.flex-images img:hover {
+  transform: scale(1.5);
+  outline: 2px solid #6AF;
+  z-index: 3;
+  box-shadow: 0 10px 20px #222; }
 
 .flex-images .photo {
   float: left;

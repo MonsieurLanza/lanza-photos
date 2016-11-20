@@ -18,14 +18,22 @@ nav.navbar {
     background-color: #cfc;
 }
 
+h2 {
+    margin-top: 1rem;
+    clear: left;
+    float: none;
+}
+
+#photo-view  {
+    padding-top: 5rem;
+}
+
 ul.flex-images, ul.flex-images > li {
   margin: 0;
   padding: 0;
 }
 
 ul.flex-images {
-  margin-top: 10rem;
-
   img {
     transition: transform 0.1s;
     position: relative;
