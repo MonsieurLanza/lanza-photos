@@ -13,16 +13,30 @@ server.datastore = new tus.FileStore({
 
 server.on('EVENT_UPLOAD_COMPLETE', (event) => {
     console.log(event.file);
-    Photo.createFromFile('fnuck.jpg', `${__dirname}/../../files/${event.file.id}`, (photo) => {
+
+    // fileName comes in as metadata with following key/value pair format :
+    // The Upload-Metadata request and response header MUST consist of one or more comma-separated key-value pairs.
+    // The key and value MUST be separated by a space. The key MUST NOT contain spaces and commas and MUST NOT be empty.
+    // The key SHOULD be ASCII encoded and the value MUST be Base64 encoded. All keys MUST be unique.
+    // Ref : http://tus.io/protocols/resumable-upload.html#upload-metadata
+
+    // FIXME: this is shorthand to get it work quickly. It may break very soon in the future.
+    var split = event.file.upload_metadata.split(' ');
+    var fileName = new Buffer(split[1], 'base64').toString('utf8');
+
+    Photo.createFromFile(fileName, `${__dirname}/../../files/${event.file.id}`, (photo) => {
         console.log("Creation ended");
     });
 });
 
 // FIXME : Move this to views
 function serialize(photos) {
-    var html = '<ul class="photolist">';
+    var html = '<ul class="flex-images">';
     for (var i in photos) {
-        html += `<li><a href="photos/${photos[i].id}/raw.jpg"><img src="photos/${photos[i].id}/screen.jpg" alt="${photos[i].title}" title="Photo prise le ${photos[i].date}"></a></li>`
+        var size = photos[i].size.thumb;
+        var width = Math.round(size.width * 300 / size.height);
+        var height = 300;
+        html += `<li class="photo" data-w="${width}" data-h="${height}"><a href="photos/${photos[i].id}/raw.jpg"><img src="photos/${photos[i].id}/thumb.jpg" alt="${photos[i].title}" title="Photo prise le ${photos[i].date}"></a></li>`
     }
     html += '</ul>';
     return html;

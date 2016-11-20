@@ -15,8 +15,8 @@ nav.navbar {
 .dragover {
   background-color: #cfc; }
 
-ul.photolist, ul.photolist > li {
-  margin: 0;
+ul.flex-images, ul.flex-images > li {
+  margin: 150px 0 0 0;
   padding: 0; }
 
 ul.photolist {
@@ -37,20 +37,23 @@ ul.photolist {
     margin: 2px;
     position: relative;
     height: 100px; }
-  ul.photolist img {
-    height: 100px;
+  ul.flex-images li:hover {
+      overflow: visible;
+  }
+  ul.flex-images img {
+    //height: 100px;
     transition: transform 0.1s;
     position: relative; }
-  ul.photolist img:hover {
+  ul.flex-images img:hover {
     transform: scale(1.5);
     outline: 2px solid #6AF;
     z-index: 3;
     box-shadow: 0 10px 20px #222; }
 
 .flex-images {
-  overflow: hidden; }
+ // overflow: hidden; }
 
-.flex-images .item {
+.flex-images .photo {
   float: left;
   margin: 4px;
   border: 1px solid #eee;
@@ -58,7 +61,7 @@ ul.photolist {
   overflow: hidden;
   position: relative; }
 
-.flex-images .item img {
+.flex-images .photo img {
   display: block;
   width: auto;
   height: 100%; }
