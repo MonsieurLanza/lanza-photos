@@ -1,12 +1,13 @@
 var Gps = {
     /* Éhontément inspiré de cozy-photos */
     degreesToDecimal: function(position, direction) {
+        console.log(position);
         var split = position.match(/(\d+)\/(\d+), (\d+)\/(\d+), (\d+)\/(\d+)/);
         var coord = null;
         var sign = direction == 'S' || direction == "W" ? -1 : 1;
 
         // latitude & longitude
-        if(split[6]) {
+        if(split && split[6]) {
             coord = split[1] / split[2];            // degree
             coord += (split[3] / split[4]) / 60;    // minutes
             coord += (split[5] / split[6]) / 3600;  // seconds
@@ -29,9 +30,9 @@ var Gps = {
 
         var gps = {};
 
-        if(exif[lat]) gps.lat = degreesToDecimal(exif[lat], exif[lat + ref]);
-        if(exif[lng]) gps.long = degreesToDecimal(exif[lng], exif[lng + ref]);
-        if(exif[alt]) gps.alt = degreesToDecimal(exif[alt], exif[alt + ref]);
+        if(exif[lat]) gps.lat = this.degreesToDecimal(exif[lat], exif[lat + ref]);
+        if(exif[lng]) gps.long = this.degreesToDecimal(exif[lng], exif[lng + ref]);
+        if(exif[alt]) gps.alt = this.degreesToDecimal(exif[alt], exif[alt + ref]);
 
         return gps;
     }

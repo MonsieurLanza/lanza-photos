@@ -84,12 +84,16 @@ Photo.createFromFile = function(fileName, filePath, callback) {
         Photo.create(photovalues, (err, photo) => {
             photo.attachBinary(filePath, {name: 'raw', type: data['Mime type']}, (err) => {
                 ImgProcessor.resize(1200, 1200, 'screen', (err) =>{
-                    photo.size.screen = ImgProcessor.size();
-                    photo.attachBinary(filePath + 'screen.jpg', {name: 'screen', type: 'image/jpeg'}, (err)=>{
-                        ImgProcessor.resize(null, 300, 'thumb', (err) => {
-                            photo.size.thumb = ImgProcessor.size();
-                            photo.attachBinary(filePath + 'thumb.jpg', {name: 'thumb', type: 'image/jpeg'}, (err)=>{
-                                photo.updateAttributes({size:photo.size}, (err, photo) => {callback(photo);});
+                    ImgProcessor.size((err, size) => {
+                        photo.size.screen = size;
+                        photo.attachBinary(filePath + 'screen.jpg', {name: 'screen', type: 'image/jpeg'}, (err)=>{
+                            ImgProcessor.resize(null, 300, 'thumb', (err) => {
+                                ImgProcessor.size((err, size) => {
+                                    photo.size.thumb = size;
+                                    photo.attachBinary(filePath + 'thumb.jpg', {name: 'thumb', type: 'image/jpeg'}, (err)=>{
+                                        photo.updateAttributes({size:photo.size}, (err, photo) => {callback(photo);});
+                                    });
+                                });
                             });
                         });
                     });

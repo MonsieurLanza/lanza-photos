@@ -18,36 +18,29 @@ nav.navbar {
     background-color: #cfc;
 }
 
-ul.photolist, ul.photolist > li {
+h2 {
+    margin-top: 1rem;
+    clear: left;
+    float: none;
+}
+
+#photo-view  {
+    padding-top: 5rem;
+}
+
+ul.flex-images, ul.flex-images > li {
   margin: 0;
   padding: 0;
 }
 
-ul.photolist {
-  display: -webkit-flex;
-  display: -ms-flex;
-  display: flex;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-  -ms-align-items: center;
-  align-items: center;
-  justify-content:  center;
-  margin-top: 100px;
-
-  li {
-    text-align: center;
-    vertical-align: middle;
-    list-style-type: none;
-    margin: 2px;
-    position: relative;
-    height: 100px;
-  }
-
+ul.flex-images {
   img {
-    height: 100px;
     transition: transform 0.1s;
     position: relative;
+  }
+
+  li:hover {
+      overflow: visible;
   }
 
   img:hover {
@@ -59,3 +52,4 @@ ul.photolist {
 }
 
 @import 'vendor/fleximages/flex-images.scss';
+@import 'vendor/lightbox/lightbox.scss';
