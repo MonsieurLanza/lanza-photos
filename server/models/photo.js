@@ -1,6 +1,7 @@
 var async = require('async');
 var cozydb = require('cozydb');
 var FileHelper = require('../helpers/file');
+var fs = require('fs');
 var Gps = require('../helpers/gps');
 var ImgProcessor = require('../helpers/imgProcessor');
 
@@ -106,7 +107,7 @@ Photo.createFromFile = function(fileName, filePath, callback) {
                                         photo.updateAttributes({size:photo.size}, (err, photo) => {callback(photo);});
 
                                     });
-                                    
+
                                     fs.unlink(filePath, logerror);
                                     fs.unlink(filePath + 'screen.jpg', logerror);
                                     fs.unlink(filePath + 'thumb.jpg', logerror);

@@ -29,7 +29,7 @@
         </form>
     <!-- jQuery first, then Tether, then Bootstrap JS. -->
     <script src="js/jquery.min.js"></script>
-    <script src="hjs/tether.min.js"></script>
+    <script src="js/tether.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/tus.min.js"></script>
     <script src="js/flex-images.min.js"></script>
@@ -51,12 +51,12 @@
 
 
         function zoomIn() {
-            rowHeight = rowHeight > 300 ? rowHeight : rowHeight + 10;
+            rowHeight = rowHeight > 300 ? rowHeight : rowHeight * 1.20;
             new flexImages({selector: ".flex-images", container: ".photo", rowHeight: rowHeight});
         }
 
         function zoomOut() {
-            rowHeight = rowHeight < 50 ? rowHeight : rowHeight - 10;
+            rowHeight = rowHeight < 50 ? rowHeight : rowHeight * 0.80;
             new flexImages({selector: ".flex-images", container: ".photo", rowHeight: rowHeight});
         }
 

@@ -52,6 +52,8 @@ lightBox.prototype.initLightBox = function () {
 
 			//hide overflow
 			this.body.style.overflow = "hidden";
+
+			if(!document.getElementById('lightbox-background')) {
 			this.body.insertAdjacentHTML('beforeend', this.html);
 
 			//get slides container
@@ -111,6 +113,7 @@ lightBox.prototype.initLightBox = function () {
 			document.querySelector(".lightbox-exit").addEventListener("click", function() {
 				this.close();
 			}.bind(this));
+		}
 		}.bind(this));
 	};
 };
