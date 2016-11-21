@@ -12,8 +12,6 @@ server.datastore = new tus.FileStore({
 });
 
 server.on('EVENT_UPLOAD_COMPLETE', (event) => {
-    console.log(event.file);
-
     // fileName comes in as metadata with following key/value pair format :
     // The Upload-Metadata request and response header MUST consist of one or more comma-separated key-value pairs.
     // The key and value MUST be separated by a space. The key MUST NOT contain spaces and commas and MUST NOT be empty.

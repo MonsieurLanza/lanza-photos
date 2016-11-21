@@ -60,8 +60,20 @@ Photo.createFromFile = function(fileName, filePath, callback) {
     ImgProcessor.init(filePath, fileName);
     ImgProcessor.readExifs((err, data) => {
         if (data.Properties) {
-            // FIXME : get proper orientation
-            photovalues.orientation = 1;
+            const orientation = 'exif:Orientation';
+            if(data.Properties[orientation] != 'Undefined') {
+              photovalues.orientation = data.Properties[orientation];
+              console.log("Orientation :" + data.Properties[orientation]);
+            }
+            else
+                photovalues.orientation = 1;
+
+            if(photovalues.orientation >= 5 &&
+                photovalues.orientation <= 8) {
+                    var tmp = data.size.width;
+                    data.size.width = data.size.height;
+                    data.size.height = tmp;
+                }
 
             photovalues.exif = data.Properties;
             photovalues.gps = Gps.fromExif(data.Properties);
@@ -92,7 +104,16 @@ Photo.createFromFile = function(fileName, filePath, callback) {
                                     photo.size.thumb = size;
                                     photo.attachBinary(filePath + 'thumb.jpg', {name: 'thumb', type: 'image/jpeg'}, (err)=>{
                                         photo.updateAttributes({size:photo.size}, (err, photo) => {callback(photo);});
+
                                     });
+                                    
+                                    fs.unlink(filePath, logerror);
+                                    fs.unlink(filePath + 'screen.jpg', logerror);
+                                    fs.unlink(filePath + 'thumb.jpg', logerror);
+
+                                    function logerror(err) {
+                                      if(err) console.log(err);
+                                    }
                                 });
                             });
                         });
