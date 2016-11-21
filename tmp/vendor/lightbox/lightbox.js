@@ -52,67 +52,65 @@ lightBox.prototype.initLightBox = function () {
 
 			//hide overflow
 			this.body.style.overflow = "hidden";
+			this.body.insertAdjacentHTML('beforeend', this.html);
 
-			if(this.body.innerHTML += this.html) {
+			//get slides container
+			this.slidesBox = document.querySelector(".lightbox-slides");
 
-				//get slides container
-				this.slidesBox = document.querySelector(".lightbox-slides");
+			//get loading Animation
+			this.loadingAnimation = document.querySelector(".lightbox-loader");
 
-				//get loading Animation
-				this.loadingAnimation = document.querySelector(".lightbox-loader");
+			//set buttons handler
+			this.buttonRight = document.querySelector(".lightbox-button-right");
+			this.buttonLeft = document.querySelector(".lightbox-button-left");
 
-				//set buttons handler
-				this.buttonRight = document.querySelector(".lightbox-button-right");
-				this.buttonLeft = document.querySelector(".lightbox-button-left");
-
-					/* button handler */
-					this.buttonRight.addEventListener("click", function () {
-						this.slideRight();
-					}.bind(this));
-
-					this.buttonLeft.addEventListener("click", function () {
-						this.slideLeft();
-					}.bind(this));
-
-					window.addEventListener("keydown", function(e) {
-						if(e.keyCode === 27) {
-							//escape
-							this.close();
-						}
-
-						if(e.keyCode === 39) {
-							//right
-							this.slideRight();
-						}
-
-						if(e.keyCode === 37) {
-							//left
-							this.slideLeft();
-						}
-					}.bind(this));
-
-					//touch
-					window.addEventListener("touchstart", function (e) {
-						this.touchStart = e.changedTouches[0].pageX;
-					}.bind(this));
-
-					window.addEventListener("touchend", function (e) {
-						this.touchEnd = e.changedTouches[0].pageX;
-
-						if((this.touchEnd - this.touchStart) > 0) {
-							this.slideLeft();
-						} else {
-							this.slideRight();
-						}
-					}.bind(this));
-
-				//Run next Function
-				this.putAllImages();
-
-				document.querySelector(".lightbox-exit").addEventListener("click", function() {
-					this.close();
+				/* button handler */
+				this.buttonRight.addEventListener("click", function () {
+					this.slideRight();
 				}.bind(this));
-			}
+
+				this.buttonLeft.addEventListener("click", function () {
+					this.slideLeft();
+				}.bind(this));
+
+				window.addEventListener("keydown", function(e) {
+					if(e.keyCode === 27) {
+						//escape
+						this.close();
+					}
+
+					if(e.keyCode === 39) {
+						//right
+						this.slideRight();
+					}
+
+					if(e.keyCode === 37) {
+						//left
+						this.slideLeft();
+					}
+				}.bind(this));
+
+				//touch
+				window.addEventListener("touchstart", function (e) {
+					this.touchStart = e.changedTouches[0].pageX;
+				}.bind(this));
+
+				window.addEventListener("touchend", function (e) {
+					this.touchEnd = e.changedTouches[0].pageX;
+
+					if((this.touchEnd - this.touchStart) > 0) {
+						this.slideLeft();
+					} else {
+						this.slideRight();
+					}
+				}.bind(this));
+
+			//Run next Function
+			this.putAllImages();
+
+			document.querySelector(".lightbox-exit").addEventListener("click", function() {
+				this.close();
+			}.bind(this));
 		}.bind(this));
 	};
 };
