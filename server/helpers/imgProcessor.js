@@ -11,7 +11,7 @@ var ImgProcessor = {
     },
     ensure: function() {
         if(!image) {
-            console.log("You MUST call init before any other ImageProcessor operation");
+            console.log('You MUST call init before any other ImageProcessor operation.');
         }
         return image;
     },

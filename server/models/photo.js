@@ -22,26 +22,26 @@ var Photo = cozydb.getModel('Photo', {
 });
 
 Photo.list = function(options, callback) {
-        Photo.request('all', function(err, photos) {
-            if (err) {
-                callback(err);
-            } else {
-                photos = photos.sort((a, b) => { return a.date < b.date ? 1 : -1; });
-                callback(null, photos);
-            }
-        });
+    Photo.request('all', function(err, photos) {
+        if (err) {
+            callback(err);
+        } else {
+            photos = photos.sort((a, b) => { return a.date < b.date ? 1 : -1; });
+            callback(null, photos);
+        }
+    });
 };
 
 Photo.prototype.pipeFile = function(which, writable) {
-    request = FileHelper.download(`/data/${this.id}/binaries/${this.which(which)}`, function(readable) {
-        if (readable.statusCode == "200") {
+    var request = FileHelper.download(`/data/${this.id}/binaries/${this.which(which)}`, function(readable) {
+        if (readable.statusCode == '200') {
             readable.pipe( writable );
         }
     });
 
     // ?? Kind of a hack I do not really get... Abort the request when response ends ?
     writable.on('close', function() { request.abort(); });
-}
+};
 
 Photo.prototype.which = function(which) {
     var ret = which;
@@ -50,7 +50,7 @@ Photo.prototype.which = function(which) {
             ret = 'file';
 
     return ret;
-}
+};
 
 Photo.createFromFile = function(fileName, filePath, callback) {
     var photovalues = {
@@ -62,19 +62,18 @@ Photo.createFromFile = function(fileName, filePath, callback) {
     ImgProcessor.readExifs((err, data) => {
         if (data.Properties) {
             const orientation = 'exif:Orientation';
-            if(data.Properties[orientation] != 'Undefined') {
-              photovalues.orientation = data.Properties[orientation];
-              console.log("Orientation :" + data.Properties[orientation]);
+            if (data.Properties[orientation] != 'Undefined') {
+                photovalues.orientation = data.Properties[orientation];
+                console.log('Orientation :' + data.Properties[orientation]);
             }
             else
                 photovalues.orientation = 1;
 
-            if(photovalues.orientation >= 5 &&
-                photovalues.orientation <= 8) {
-                    var tmp = data.size.width;
-                    data.size.width = data.size.height;
-                    data.size.height = tmp;
-                }
+            if (photovalues.orientation >= 5 && photovalues.orientation <= 8) {
+                var tmp = data.size.width;
+                data.size.width = data.size.height;
+                data.size.height = tmp;
+            }
 
             photovalues.exif = data.Properties;
             photovalues.gps = Gps.fromExif(data.Properties);
@@ -95,6 +94,7 @@ Photo.createFromFile = function(fileName, filePath, callback) {
         // FIXME: clean this mess : error handling & use async
         // TODO: erase temp files. Get sizes right.
         Photo.create(photovalues, (err, photo) => {
+
             photo.attachBinary(filePath, {name: 'raw', type: data['Mime type']}, (err) => {
                 ImgProcessor.resize(1200, 1200, 'screen', (err) =>{
                     ImgProcessor.size((err, size) => {
@@ -113,7 +113,7 @@ Photo.createFromFile = function(fileName, filePath, callback) {
                                     fs.unlink(filePath + 'thumb.jpg', logerror);
 
                                     function logerror(err) {
-                                      if(err) console.log(err);
+                                        if (err) console.log(err);
                                     }
                                 });
                             });
@@ -123,6 +123,6 @@ Photo.createFromFile = function(fileName, filePath, callback) {
             });
         });
     });
-}
+};
 
 module.exports = Photo;

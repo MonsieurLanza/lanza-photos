@@ -4,7 +4,7 @@ var Gps = {
         console.log(position);
         var split = position.match(/(\d+)\/(\d+), (\d+)\/(\d+), (\d+)\/(\d+)/);
         var coord = null;
-        var sign = direction == 'S' || direction == "W" ? -1 : 1;
+        var sign = direction == 'S' || direction == 'W' ? -1 : 1;
 
         // latitude & longitude
         if(split && split[6]) {

@@ -22,7 +22,7 @@ module.exports = {
             americano.errorHandler({
                 dumpExceptions: true,
                 showStack: true
-            }),
+            })
         ]
     },
     development: [
