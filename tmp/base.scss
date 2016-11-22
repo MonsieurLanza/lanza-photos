@@ -28,12 +28,12 @@ h2 {
     padding-top: 5rem;
 }
 
-ul.flex-images, ul.flex-images > li {
+ul.photolist, ul.photolist > li {
   margin: 0;
   padding: 0;
 }
 
-ul.flex-images {
+ul.photolist {
   img {
     transition: transform 0.1s;
     position: relative;

@@ -28,9 +28,9 @@
             <input type="submit" name="Téléverser">
         </form>
     <!-- jQuery first, then Tether, then Bootstrap JS. -->
-    <script src="js/jquery.min.js"></script>
+    <!-- <script src="js/jquery.min.js"></script>
     <script src="js/tether.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap.min.js"></script> -->
     <script src="js/tus.min.js"></script>
     <script src="js/flex-images.min.js"></script>
     <script src="js/lightbox.js"></script>
@@ -45,19 +45,20 @@
             zoomInBtn.addEventListener('click', zoomIn, false);
             zoomOutBtn.addEventListener('click', zoomOut, false);
 
-            new flexImages({selector: ".flex-images", container: ".photo", rowHeight: rowHeight});
             new lightBox();
+            new flexImages({selector: ".photolist", container: ".photo", rowHeight: rowHeight});
+
         });
 
 
         function zoomIn() {
             rowHeight = rowHeight > 300 ? rowHeight : rowHeight * 1.20;
-            new flexImages({selector: ".flex-images", container: ".photo", rowHeight: rowHeight});
+            new flexImages({selector: ".photolist", container: ".photo", rowHeight: rowHeight});
         }
 
         function zoomOut() {
             rowHeight = rowHeight < 50 ? rowHeight : rowHeight * 0.80;
-            new flexImages({selector: ".flex-images", container: ".photo", rowHeight: rowHeight});
+            new flexImages({selector: ".photolist", container: ".photo", rowHeight: rowHeight});
         }
 
 
