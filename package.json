@@ -5,7 +5,8 @@
   "author": "Lanza",
   "scripts": {
     "start": "node server.js",
-    "test": "mocha --reporter nyan"
+    "test": "mocha --reporter nyan",
+    "debug": "node --debug-brk=5858 server.js"
   },
   "dependencies": {
     "americano": "0.4.5",
