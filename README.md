@@ -9,7 +9,7 @@ Known issues :
 * upload does not work on iOS (not tested on Android)
 * fullscreen does not work (this is a cozy layout issue) unless you open the frame alone in a tab/window.
 * view does not refresh after uploading photos (currently implementing this)
-* still lots of ugly stuff in here... (client side essentially, but not only)
+* still lots of ugly & unfinished stuff in here... (client side essentially, but not only)
 
 What does work :
 * upload photos using tus resumable protocol (as for now, refresh the page to see them) using form or drag/drop
@@ -20,13 +20,12 @@ What does work :
 * diaporama
 
 This app uses :
-* fleximages (with a fix). (MIT)
-* lightbox (with another fix). Not this one, this one. (GPL3)
-* bootstrap (MIT)
-* tus-node-server (MIT)
-* tus-js-client (MIT)
+* [flexImages](https://github.com/Pixabay/JavaScript-flexImages) (with a [fix](https://github.com/Pixabay/JavaScript-flexImages/pull/5)). (MIT)
+* [LightBox](https://github.com/PyxelCoder/LightBox) (with another fix). Not this [one](https://github.com/lokesh/lightbox2). (GPL3)
+* BootStrap 4 alpha (MIT)
+* [tus-node-server](https://github.com/tus/tus-node-server) (tweaked to get it work behind cozy-proxy) (MIT)
+* [tus-js-client](https://github.com/tus/tus-js-client) (MIT)
 * americano (MIT)
 * cozydb (MIT)
 * temporarily mustache (MIT) and consolidate (MIT), which will soon be dropped for vue.js
-
-a makefile :p
+* a makefile :p
