@@ -14,14 +14,20 @@ fleximages: tmp/vendor/fleximages/flex-images.min.js
 jquery: node_modules/jquery/dist/jquery.min.js
 	cp node_modules/jquery/dist/jquery.min.js client/public/js/
 
-js-client: bootstrap fleximages jquery lightbox tus
+js-client: bootstrap fleximages jquery lightbox socket.io tus vue
 
 lightbox: tmp/vendor/lightbox/lightbox.js tmp/vendor/lightbox/img/*
 	cp tmp/vendor/lightbox/lightbox.js client/public/js/
 	cp -R tmp/vendor/lightbox/img client/public/img
 
+socket.io : node_modules/socket.io/node_modules/socket.io-client/socket.io.min.js
+	cp node_modules/socket.io/node_modules/socket.io-client/socket.io.min.js client/public/js/
+
 tether: node_modules/tether/dist/js/tether.min.js
 	cp node_modules/tether/dist/js/tether.min.js client/public/js/
 
-tus:
+tus: node_modules/tus-js-client/dist/tus.min.js
 	cp node_modules/tus-js-client/dist/tus.min.js client/public/js/
+
+vue: node_modules/vue/dist/vue.min.js
+	cp node_modules/vue/dist/vue.min.js client/public/js/

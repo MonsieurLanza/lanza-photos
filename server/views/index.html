@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="css/base.css">
   </head>
   <body class="container-fluid">
-    <nav class="navbar navbar-light">
+    <nav class="navbar navbar-dark">
         <ul class="nav navbar-nav">
           <li class="nav-item active"><a href="#" class="nav-link">Fil de Photos</a></li>
           <li class="nav-item"><a href="#" class="nav-link">Public</a></li>
@@ -18,6 +18,7 @@
               <button id="zoomout" class="btn btn-secondary">-</button>
               <button id="zoomin" class="btn btn-secondary">+</button>
           </li>
+          <li class="nav-item float-xs-right"><button id="fullscreen" class="btn btn-secondary">Plein écran</button></li>
         </ul>
     </nav>
     <section id="photo-view">
@@ -34,10 +35,24 @@
     <script src="js/tus.min.js"></script>
     <script src="js/flex-images.min.js"></script>
     <script src="js/lightbox.js"></script>
+    <script src="js/socket.io.min.js"></script>
+    <script src="js/vue.min.js"></script>
     <script type="text/javascript">
         var rowHeight = 150;
+        var pathToApp = '/' + window.location.pathname.substring(1);
+        var socket = io(window.location.origin, {path: pathToApp + 'messages'});
 
+        Vue.component('new-photo', {
+        });
+
+        var vm = new Vue({});
+
+        var MyComponent = Vue.extend({
+            template : '<li class="photo" v-bind:data-w="size.thumb.width" v-bind:data-h="size.thumb.height"><a data-big="photos/{{ data.id }}/screen.jpg" href="photos/{{ data.id }}/raw.jpg" class="lightbox"><img src="photos/{{ data.id }}/thumb.jpg" alt="{{ data.title }}" title="Photo prise le {{ data.date }}"></a></li>'
+        });
         document.addEventListener("DOMContentLoaded", function() {
+            var fsBtn = document.getElementById('fullscreen');
+            fsBtn.addEventListener('click', toggleFullScreen);
 
             var zoomInBtn = document.getElementById('zoomin');
             var zoomOutBtn = document.getElementById('zoomout');
@@ -47,9 +62,17 @@
 
             new lightBox();
             new flexImages({selector: ".photolist", container: ".photo", rowHeight: rowHeight});
-
         });
 
+        function toggleFullScreen() {
+            if (!document.mozFullScreenElement) {
+                    document.documentElement.mozRequestFullScreen();
+            } else {
+                if (document.mozCancelFullScreen) {
+                    document.mozCancelFullScreen();
+                }
+            }
+        }
 
         function zoomIn() {
             rowHeight = rowHeight > 300 ? rowHeight : rowHeight * 1.20;
@@ -119,7 +142,7 @@
         var uploadFile = function(file) {
             // Create a new tus upload
             var upload = new tus.Upload(file, {
-                endpoint: "http://localhost:9104/apps/lanza-photos/uploads/",
+                endpoint: window.location + 'uploads/',
                 retryDelays: [0, 1000, 3000, 5000],
                 metadata: {fileName: file.name},
                 onError: function(error) {

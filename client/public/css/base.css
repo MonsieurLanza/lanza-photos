@@ -1,13 +1,12 @@
 @charset "UTF-8";
 body {
-  background: #FFF;
   padding-bottom: 30px; }
 
 nav.navbar {
   position: fixed;
-  border-bottom: 1px solid #BBB;
-  background-color: #fff;
-  background-color: rgba(255, 255, 255, 0.9);
+  border-bottom: 1px solid #000;
+  background-color: #0f0f0f;
+  background-color: rgba(30, 30, 30, 0.85);
   left: 0;
   right: 0;
   top: 0;
@@ -43,7 +42,7 @@ ul.photolist img:hover {
 
 .photolist .photo {
   float: left;
-  margin: 2px;
+  margin: 3px;
   box-sizing: content-box;
   overflow: hidden;
   position: relative; }
@@ -421,8 +420,8 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   font-size: 1rem;
   line-height: 1.5;
-  color: #373a3c;
-  background-color: #fff; }
+  color: #eceeef;
+  background-color: #111; }
 
 [tabindex="-1"]:focus {
   outline: none !important; }
@@ -690,7 +689,7 @@ dl.row > dd + dt {
 
 .img-thumbnail {
   padding: 0.25rem;
-  background-color: #fff;
+  background-color: #111;
   border: 1px solid #ddd;
   border-radius: 0.25rem;
   transition: all .2s ease-in-out;
@@ -1461,7 +1460,7 @@ pre {
   .table tbody + tbody {
     border-top: 2px solid #eceeef; }
   .table .table {
-    background-color: #fff; }
+    background-color: #111; }
 
 .table-sm th,
 .table-sm td {
@@ -2341,7 +2340,7 @@ tbody.collapse.in {
   padding: 0.5rem 0;
   margin: 0.125rem 0 0;
   font-size: 1rem;
-  color: #373a3c;
+  color: #eceeef;
   text-align: left;
   list-style: none;
   background-color: #fff;
@@ -2875,7 +2874,7 @@ tbody.collapse.in {
   .nav-tabs .nav-item.open .nav-link:focus,
   .nav-tabs .nav-item.open .nav-link:hover {
     color: #55595c;
-    background-color: #fff;
+    background-color: #111;
     border-color: #ddd #ddd transparent; }
   .nav-tabs .dropdown-menu {
     margin-top: -1px;

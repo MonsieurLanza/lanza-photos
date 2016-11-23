@@ -58,8 +58,10 @@ Photo.createFromFile = function(fileName, filePath, callback) {
         description: ''
     };
 
-    ImgProcessor.init(filePath, fileName);
-    ImgProcessor.readExifs((err, data) => {
+    var imgp = new ImgProcessor(filePath, fileName);
+    imgp.readExifs((err, data) => {
+        if (err) console.log('readExifs failed');
+        console.log('exifs read');
         if (data.Properties) {
             const orientation = 'exif:Orientation';
             if (data.Properties[orientation] != 'Undefined') {
@@ -96,12 +98,12 @@ Photo.createFromFile = function(fileName, filePath, callback) {
         Photo.create(photovalues, (err, photo) => {
 
             photo.attachBinary(filePath, {name: 'raw', type: data['Mime type']}, (err) => {
-                ImgProcessor.resize(1200, 1200, 'screen', (err) =>{
-                    ImgProcessor.size((err, size) => {
+                imgp.resize(1200, 1200, 'screen', (err) =>{
+                    imgp.size((err, size) => {
                         photo.size.screen = size;
                         photo.attachBinary(filePath + 'screen.jpg', {name: 'screen', type: 'image/jpeg'}, (err)=>{
-                            ImgProcessor.resize(null, 300, 'thumb', (err) => {
-                                ImgProcessor.size((err, size) => {
+                            imgp.resize(null, 300, 'thumb', (err) => {
+                                imgp.size((err, size) => {
                                     photo.size.thumb = size;
                                     photo.attachBinary(filePath + 'thumb.jpg', {name: 'thumb', type: 'image/jpeg'}, (err)=>{
                                         photo.updateAttributes({size:photo.size}, (err, photo) => {callback(photo);});

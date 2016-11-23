@@ -1,7 +1,7 @@
 {
   "name": "lanza-photos",
   "cozy-displayName": "Lanza's Photos",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "Lanza",
   "scripts": {
     "start": "node server.js",
