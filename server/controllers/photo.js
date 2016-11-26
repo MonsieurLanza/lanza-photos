@@ -55,6 +55,17 @@ module.exports.fetch = function (req, res, next) {
     });
 };
 
+module.exports.delete = function (req, res) {
+    Photo.delete(req.params.id, function (err) {
+        if(err) {
+            console.log;
+        }
+        else {
+            res.status('204').send();
+        }
+    });
+};
+
 module.exports.setIo = function(socketio) {
     this.io = socketio;
 };

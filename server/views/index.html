@@ -61,11 +61,39 @@
 
             Vue.component('photo', {
                 props: ['photo'],
-                template: '<li class="photo" :data-w="photo.size.thumb.width" :data-h="photo.size.thumb.height"><a :href="photo.src" :data-big="photo.src" class="lightbox"><img :src="thumb" :alt="photo.title"></a></li>',
+                template: '<li class="photo" :data-w="photo.size.thumb.width" :data-h="photo.size.thumb.height"><a :href="photo.src" :data-big="photo.src" class="lightbox"><img :src="thumb" :alt="photo.title"></a><button v-on:click="deletePhoto">X</button></li>',
                 computed: {
                     thumb: function() {
                         return `${window.location}/photos/${this['photo'].id}/thumb.jpg`
                     }
+                },
+                methods: {
+                    deletePhoto: function(event) {
+                        var tof = this.photo;
+                        if (confirm(`Delete photo ${this.photo.title}?`)) {
+                            fetch(window.location + "photos/" + this.photo.id, {
+                                method: 'DELETE',
+                                headers: headers,
+                                mode: 'cors',
+                                cache: 'default',
+                                credentials: 'include'
+                            }).then(
+                                function() {
+                                    var index = vm.photos.findIndex(function(el) {return el.id == tof.id});
+                                    vm.photos.splice(index, 1);
+                                });
+                            }
+                        }
+                    }
+                }
+            );
+
+            var vm = new Vue({
+                el: '#photo-view',
+                data: { photos: [] },
+                updated: function() {
+                    new flexImages({selector: ".photolist", container: ".photo", rowHeight: rowHeight});
+                    console.log("updated fired");
                 }
             });
 
@@ -78,15 +106,6 @@
                 cache: 'default',
                 credentials: 'include'
             };
-
-            var vm = new Vue({
-                el: '#photo-view',
-                data: { photos: [] },
-                updated: function() {
-                    new flexImages({selector: ".photolist", container: ".photo", rowHeight: rowHeight});
-                    console.log("updated fired");
-                }
-            });
 
             fetch(window.location, request).then(function(response) {
                 response.json().then(function(json) {

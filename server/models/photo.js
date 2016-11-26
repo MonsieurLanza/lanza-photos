@@ -127,4 +127,25 @@ Photo.createFromFile = function(fileName, filePath, callback) {
     });
 };
 
+Photo.prototype.delete = function(id, callback) {
+    if(this.binary) {
+        var binaries = Object.keys(this.binary);
+        async.eachSeries(binaries, (bin, callback) => {
+            Photo.removeBinary(bin, (err) => {
+                if(err) {
+                    console.log(err);
+                }
+                callback();
+            });
+        }, (err) => {
+            if (err) {
+                console.log(err);
+            }
+            this.destroy(callback);
+        });
+    } else {
+        this.destroy(callback);
+    }
+};
+
 module.exports = Photo;

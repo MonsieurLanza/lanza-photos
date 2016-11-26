@@ -36,18 +36,30 @@ ul.photolist, ul.photolist > li {
 }
 
 ul.photolist {
-  img {
+  li {
     transition: transform 0.1s;
     position: relative;
   }
 
-  li:hover {
-      overflow: visible;
+  button {
+    position: absolute;
+    right: 2px;
+    top: 2px;
+    z-index: 100;
+    display: none;
   }
 
-  img:hover {
+  li:hover {
+      //overflow: visible;
+
+      button {
+          display: block;
+      }
+  }
+
+  li:hover {
     transform: scale(1.5);
-    outline: 2px solid #6AF;
+    outline: 4px solid #6AF;
     z-index: 3;
     box-shadow: 0 10px 20px #222;
   }
