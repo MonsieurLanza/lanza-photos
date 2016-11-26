@@ -8,8 +8,8 @@ Known issues :
 * thumbnail zoom creates artifacts on webkit based browsers
 * upload does not work on iOS (not tested on Android)
 * fullscreen does not work (this is a cozy layout issue) unless you open the frame alone in a tab/window.
-* view does not refresh after uploading photos (currently implementing this)
 * still lots of ugly & unfinished stuff in here... (client side essentially, but not only)
+* view is trashed after adding photos.
 
 What does work :
 * upload photos using tus resumable protocol (as for now, refresh the page to see them) using form or drag/drop
