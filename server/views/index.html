@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
   <head>
     <!-- Required meta tags always come first -->
@@ -22,35 +22,32 @@
         </ul>
     </nav>
     <section id="photo-view">
-    {{{ plop }}}
+        <ul class="photolist">
+            <photo v-for="item in photos" v-bind:photo="item"></photo>
+        </ul>
     </section>
         <form method="post" enctype="multipart/form-data" action="photos">
             <input type="file" accept="image/*" name="file" id="photo-input">
             <input type="submit" name="Téléverser">
         </form>
     <!-- jQuery first, then Tether, then Bootstrap JS. -->
-    <!-- <script src="js/jquery.min.js"></script>
-    <script src="js/tether.min.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <!-- <script src="js/tether.min.js"></script>
     <script src="js/bootstrap.min.js"></script> -->
     <script src="js/tus.min.js"></script>
     <script src="js/flex-images.min.js"></script>
     <script src="js/lightbox.js"></script>
     <script src="js/socket.io.min.js"></script>
     <script src="js/vue.min.js"></script>
+    <!-- <script src="js/app.js"></script> -->
     <script type="text/javascript">
         var rowHeight = 150;
         var pathToApp = '/' + window.location.pathname.substring(1);
         var socket = io(window.location.origin, {path: pathToApp + 'messages'});
 
-        Vue.component('new-photo', {
-        });
 
-        var vm = new Vue({});
-
-        var MyComponent = Vue.extend({
-            template : '<li class="photo" v-bind:data-w="size.thumb.width" v-bind:data-h="size.thumb.height"><a data-big="photos/{{ data.id }}/screen.jpg" href="photos/{{ data.id }}/raw.jpg" class="lightbox"><img src="photos/{{ data.id }}/thumb.jpg" alt="{{ data.title }}" title="Photo prise le {{ data.date }}"></a></li>'
-        });
         document.addEventListener("DOMContentLoaded", function() {
+
             var fsBtn = document.getElementById('fullscreen');
             fsBtn.addEventListener('click', toggleFullScreen);
 
@@ -60,8 +57,50 @@
             zoomInBtn.addEventListener('click', zoomIn, false);
             zoomOutBtn.addEventListener('click', zoomOut, false);
 
-            new lightBox();
-            new flexImages({selector: ".photolist", container: ".photo", rowHeight: rowHeight});
+            Vue.config.silent = false;
+
+            Vue.component('photo', {
+                props: ['photo'],
+                template: '<li class="photo" :data-w="photo.size.thumb.width" :data-h="photo.size.thumb.height"><a :href="photo.src" :data-big="photo.src" class="lightbox"><img :src="thumb" :alt="photo.title"></a></li>',
+                computed: {
+                    thumb: function() {
+                        return `${window.location}/photos/${this['photo'].id}/thumb.jpg`
+                    }
+                }
+            });
+
+            var headers = new Headers();
+            headers.append("Accept", "application/json");
+            var request = {
+                method: 'GET',
+                headers: headers,
+                mode: 'cors',
+                cache: 'default',
+                credentials: 'include'
+            };
+
+            var vm = new Vue({
+                el: '#photo-view',
+                data: { photos: [] },
+                updated: function() {
+                    new flexImages({selector: ".photolist", container: ".photo", rowHeight: rowHeight});
+                    console.log("updated fired");
+                }
+            });
+
+            fetch(window.location, request).then(function(response) {
+                response.json().then(function(json) {
+                    vm.photos = json;
+                });
+            });
+
+            socket.on('new photo', function(data){
+                var index = vm.photos.findIndex(function(el) {
+                    return data.date > el.date;
+                });
+                vm.photos.splice(index, 0, data);
+            });
+
         });
 
         function toggleFullScreen() {
@@ -85,7 +124,7 @@
         }
 
 
-        var droptarget = document.getElementById('photo-view');
+        var droptarget = document.documentElement;
         droptarget.addEventListener('dragenter', drag, false);
         droptarget.addEventListener('dragover', drag, false);
         droptarget.addEventListener('drop', dropFile, false);
@@ -159,6 +198,11 @@
             // Start the upload
             upload.start()
         }
+
+
+
+
+
     </script>
   </body>
 </html>

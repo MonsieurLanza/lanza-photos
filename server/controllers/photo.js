@@ -1,6 +1,5 @@
 const Photo = require('../models/photo');
 const tus = require('../lib/vendor/tus-node-server');
-
 const server = new tus.Server();
 
 
@@ -22,36 +21,9 @@ server.on('EVENT_UPLOAD_COMPLETE', (event) => {
     var fileName = new Buffer(split[1], 'base64').toString('utf8');
 
     Photo.createFromFile(fileName, `${__dirname}/../../files/${event.file.id}`, (photo) => {
-        console.log('Creation ended');
+        this.io.emit('new photo', photo);
     });
 });
-
-// FIXME : Move this to views
-function serializeList(photos) {
-    var date = '2016';
-    if(photos.length > 0)
-        date = photos[0].date.substring(0, 4);
-    var html = `<h2>${date}</h2>`;
-    html += '<ul class="photolist">';
-    for (var i in photos) {
-        if(photos[i].date.substring(0, 4) != date ) {
-            date = photos[i].date.substring(0, 4);
-            html += `</ul><h2>${date}</h2><ul class="photolist">`;
-        }
-        html += serialize(photos[i]);
-    }
-    html += '</ul>';
-    return html;
-}
-
-function serialize(photo) {
-    var size = photo.size.raw;
-    var width = Math.round(size.width * 300 / size.height);
-    var height = 300;
-    // TODO: Formatter les dates pour affichage.
-    var html = `<li class="photo" data-w="${width}" data-h="${height}"><a data-big="photos/${photo.id}/screen.jpg" href="photos/${photo.id}/raw.jpg" class="lightbox"><img src="photos/${photo.id}/thumb.jpg" alt="${photo.title}" title="Photo prise le ${photo.date}"></a></li>`;
-    return html;
-}
 
 module.exports.index = function (req, res, next) {
     Photo.list(null, function(err, photos) {
@@ -59,7 +31,9 @@ module.exports.index = function (req, res, next) {
             next(err);
         } else {
             if (req.accepts('text/html')) {
-                res.render('index', { plop: serializeList(photos) });
+                res.sendFile('index.html', {root: `${__dirname}/../views/` }, function(err) {
+                    if (err) console.log(err);
+                });
             }
             else if (req.accepts('application/json'))
                 res.status(200).json(photos);
@@ -68,15 +42,6 @@ module.exports.index = function (req, res, next) {
 };
 
 module.exports.fetch = function (req, res, next) {
-    // var options = {
-    //     root: __dirname + '/../../client/public/',
-    //     dotfiles: 'deny',
-    //     headers: {
-    //         'x-timestamp': Date.now(),
-    //         'x-sent': true
-    //     }
-    // };
-
     Photo.find(req.params.id, function(err, photo) {
         if (err) next(err);
         else if (!photo) next(NotFound(`Photo ${photo.id}`));
@@ -88,6 +53,10 @@ module.exports.fetch = function (req, res, next) {
             }
         }
     });
+};
+
+module.exports.setIo = function(socketio) {
+    this.io = socketio;
 };
 
 module.exports.tus = function( req, res ) {
