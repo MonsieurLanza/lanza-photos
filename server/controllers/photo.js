@@ -31,7 +31,7 @@ module.exports.index = function (req, res, next) {
             next(err);
         } else {
             if (req.accepts('text/html')) {
-                res.sendFile('index.html', {root: `${__dirname}/../views/` }, function(err) {
+                res.sendFile('main.html', {root: `${__dirname}/../../client/dist/` }, function(err) {
                     if (err) console.log(err);
                 });
             }
