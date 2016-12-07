@@ -127,11 +127,11 @@ Photo.createFromFile = function(fileName, filePath, callback) {
     });
 };
 
-Photo.prototype.delete = function(id, callback) {
+Photo.prototype.delete = function(callback) {
     if(this.binary) {
         var binaries = Object.keys(this.binary);
         async.eachSeries(binaries, (bin, callback) => {
-            Photo.removeBinary(bin, (err) => {
+            this.removeBinary(bin, (err) => {
                 if(err) {
                     console.log(err);
                 }

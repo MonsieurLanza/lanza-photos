@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "americano": "0.4.5",
+    "async": "^2.1.4",
     "bootstrap": "^4.0.0-alpha.5",
     "configstore": "^2.1.0",
     "consolidate": "^0.14.1",

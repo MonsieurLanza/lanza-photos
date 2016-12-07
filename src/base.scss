@@ -3,6 +3,7 @@ $body-color: #eceeef;
 
 body {
   padding-bottom: 30px;
+  // overflow-y: scroll;
 }
 
 nav.navbar {
@@ -37,6 +38,7 @@ ul.photolist, ul.photolist > li {
 
 ul.photolist {
   li {
+    list-style-type: none;
     transition: transform 0.1s;
     position: relative;
   }

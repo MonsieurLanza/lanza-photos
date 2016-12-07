@@ -55,13 +55,18 @@ module.exports.fetch = function (req, res, next) {
     });
 };
 
-module.exports.delete = function (req, res) {
-    Photo.delete(req.params.id, function (err) {
+module.exports.delete = function(req, res) {
+    Photo.find(req.params.id, function(err, photo) {
         if(err) {
             console.log;
         }
         else {
-            res.status('204').send();
+            photo.delete(function(err) {
+                if (err) {
+                    console.log(err);
+                }
+                res.status('204').send();
+            });
         }
     });
 };
@@ -70,6 +75,6 @@ module.exports.setIo = function(socketio) {
     this.io = socketio;
 };
 
-module.exports.tus = function( req, res ) {
+module.exports.tus = function(req, res) {
     server.handle(req, res);
 };
